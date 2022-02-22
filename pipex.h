@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/21 21:44:32 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/22 22:13:50 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,14 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <stdarg.h>
+#include <errno.h>
 
 /*  */
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
+char	*ft_strjoin(char const	*s1, char const	*s2);
 
 /* numbers.c */
 void	ft_putnbr_unsigned_fd(unsigned int n, int fd);
