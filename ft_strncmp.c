@@ -1,42 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 15:22:42 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/23 20:41:41 by merlich          ###   ########.fr       */
+/*   Created: 2021/10/13 15:29:33 by merlich           #+#    #+#             */
+/*   Updated: 2022/02/23 20:22:01 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strjoin(char const	*s1, char const	*s2)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
-	char	*new_str;
+	int					res;
+	size_t				i;
+	const unsigned char	*p1;
+	const unsigned char	*p2;
 
+	p1 = (const unsigned char *) s1;
+	p2 = (const unsigned char *) s2;
+	res = 0;
 	i = 0;
-	if (s1 == NULL || s2 == NULL)
-		return (NULL);
-	new_str = malloc(ft_strlen(s1) + ft_strlen(s2));
-	if (NULL == new_str)
-		exit(EXIT_FAILURE);
-	else
+	while ((i < n) && ((p1[i] != '\0') || (p2[i] != '\0')))
 	{
-		while (s1[i] != '\0')
+		if (p1[i] != p2[i])
 		{
-			new_str[i] = s1[i];
-			i++;
+			res = p1[i] - p2[i];
+			break ;
 		}
-		while (*s2 != '\0')
-		{
-			new_str[i] = *s2;
-			i++;
-			s2++;
-		}
-		new_str[i] = '\0';
-		return (new_str);
+		i++;
 	}
+	return (res);
 }

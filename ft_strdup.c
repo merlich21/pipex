@@ -1,42 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 15:22:42 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/23 20:41:41 by merlich          ###   ########.fr       */
+/*   Created: 2021/10/15 15:46:50 by merlich           #+#    #+#             */
+/*   Updated: 2022/02/23 22:28:34 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strjoin(char const	*s1, char const	*s2)
+char	*ft_strdup(const char *s)
 {
-	size_t	i;
-	char	*new_str;
+	int		i;
+	int		errsv;
+	char	*ptr;
 
 	i = 0;
-	if (s1 == NULL || s2 == NULL)
+	ptr = malloc(ft_strlen(s) + 1);
+	if (NULL == ptr)
+	{
+		errsv = errno;
 		return (NULL);
-	new_str = malloc(ft_strlen(s1) + ft_strlen(s2));
-	if (NULL == new_str)
-		exit(EXIT_FAILURE);
+	}
 	else
 	{
-		while (s1[i] != '\0')
+		while (s[i] != '\0')
 		{
-			new_str[i] = s1[i];
+			ptr[i] = s[i];
 			i++;
 		}
-		while (*s2 != '\0')
-		{
-			new_str[i] = *s2;
-			i++;
-			s2++;
-		}
-		new_str[i] = '\0';
-		return (new_str);
+		ptr[i] = '\0';
 	}
+	return (ptr);
 }
