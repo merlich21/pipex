@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 20:30:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/23 23:19:31 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/24 21:38:47 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,28 @@ int	ft_list_size(t_data *head)
 		count++;
 	}
 	return (count);
+}
+
+t_data	*ft_list_last(t_data *head)
+{
+	if (head != NULL)
+	{
+		while (head->next != NULL)
+		{
+			head = head->next;
+		}
+	}
+	return (head);
+}
+
+t_data	*ft_stack_last_but_one(t_data *lst)
+{
+	if (lst != NULL)
+	{
+		while (lst->next->next != NULL)
+		{
+			lst = lst->next;
+		}
+	}
+	return (lst);
 }

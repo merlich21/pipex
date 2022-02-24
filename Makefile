@@ -6,7 +6,7 @@
 #    By: merlich <merlich@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 17:17:40 by merlich           #+#    #+#              #
-#    Updated: 2022/02/23 23:09:13 by merlich          ###   ########.fr        #
+#    Updated: 2022/02/24 22:31:27 by merlich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRCS	=	main.c ft_split.c ft_strlen.c ft_strtrim.c ft_substr.c \
 			characters.c ft_num_len.c ft_printf.c numbers.c \
 			ft_putchar_fd.c ft_putnbr_fd.c ft_putstr_fd.c \
 			ft_strjoin.c list_functions.c ft_strncmp.c \
-			ft_strdup.c stdin_parser.c 
+			ft_strdup.c stdin_parser.c \
+			error.c close_fd.c childs.c \
 
 OBJS_DIR =	objs/
 
