@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   childs.c                                           :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 22:12:48 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/24 23:55:23 by merlich          ###   ########.fr       */
+/*   Created: 2021/10/09 18:02:56 by merlich           #+#    #+#             */
+/*   Updated: 2022/02/25 19:36:31 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
-void	first_child(t_data *head, char **envp)
+void	ft_putchar_fd(char c, int fd)
 {
-	dup2(head->infile, 0);
-	close(head->fildes[0]);
-	dup2(head->fildes[1], 1);
-	// dup2(head->outfile, 1);
-	execve(head->next->path, head->next->flags, envp);
-}
-
-void	second_child(t_data *head, char **envp)
-{
-	dup2(head->fildes[0], 0);
-	close(head->fildes[1]);
-	dup2(head->outfile, 1);
-	execve(head->next->next->path, head->next->next->flags, envp);
+	write(fd, &c, 1);
 }

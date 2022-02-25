@@ -6,11 +6,11 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 23:09:50 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/24 19:36:29 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/25 19:37:18 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 void	ft_delete_tab(char **tab)
 {

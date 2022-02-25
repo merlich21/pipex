@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/24 23:15:56 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/25 19:34:26 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ typedef struct s_data
 	int				outfile;
 
 	int				fildes[2];
-	
+
 	struct s_data	*next;
 }	t_data;
 
-/*  */
+/* STRING_FUNCTIONS FOLDER */
 size_t	ft_strlen(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strtrim(char const *s1, char const *set);
@@ -49,6 +49,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
 void	ft_delete_tab(char **tab);
 
+/* FT_PRINTF FOLDER */
 /* numbers.c */
 void	ft_putnbr_unsigned_fd(unsigned int n, int fd);
 int		ft_uint(unsigned long long num, int fd);
@@ -71,6 +72,7 @@ void	ft_putstr_fd(char *s, int fd);
 /* ft_printf.c */
 int		ft_printf(const char *format, ...);
 
+/* LIST_FUNCTIONS FOLDER*/
 /* list_functions.c */
 void	ft_push(t_data **head, char *path);
 void	ft_delete_list(t_data **head);
@@ -78,12 +80,14 @@ int		ft_list_size(t_data *head);
 t_data	*ft_list_last(t_data *head);
 t_data	*ft_stack_last_but_one(t_data *lst);
 
+/* MANDATORY FOLDER */
 /* stdin_parser.c */
 void	ft_fill_list(t_data *head, char **envp);
 void	ft_check_files(char **argv);
 
 /* error.c */
-void	 ft_error(char *err_msg, t_data **head);
+void	ft_error(char *err_msg, t_data **head);
+void	ft_error_input(void);
 
 /* childs.c */
 void	first_child(t_data *head, char **envp);

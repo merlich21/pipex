@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   characters.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 14:36:52 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/21 21:38:47 by merlich          ###   ########.fr       */
+/*   Created: 2021/10/13 15:29:33 by merlich           #+#    #+#             */
+/*   Updated: 2022/02/25 19:37:43 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
-int	ft_char(char c, int fd)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	ft_putchar_fd(c, fd);
-	return (1);
-}
+	int					res;
+	size_t				i;
+	const unsigned char	*p1;
+	const unsigned char	*p2;
 
-int	ft_string(char *str, int fd)
-{
-	if (NULL == str)
+	p1 = (const unsigned char *) s1;
+	p2 = (const unsigned char *) s2;
+	res = 0;
+	i = 0;
+	while ((i < n) && ((p1[i] != '\0') || (p2[i] != '\0')))
 	{
-		str = "(null)";
+		if (p1[i] != p2[i])
+		{
+			res = p1[i] - p2[i];
+			break ;
+		}
+		i++;
 	}
-	ft_putstr_fd(str, fd);
-	return (ft_strlen(str));
+	return (res);
 }

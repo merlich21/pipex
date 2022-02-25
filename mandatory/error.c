@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 18:51:12 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/21 21:52:45 by merlich          ###   ########.fr       */
+/*   Created: 2022/02/24 21:56:54 by merlich           #+#    #+#             */
+/*   Updated: 2022/02/25 19:37:10 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
-void	ft_putnbr_fd(int n, int fd)
+void	ft_error(char *err_msg, t_data **head)
 {
-	char	c;
+	perror(err_msg);
+	ft_delete_list(head);
+	exit(EXIT_FAILURE);
+}
 
-	if (n == -2147483648)
-		write(fd, "-2147483648", 11);
-	else if (n == 2147483647)
-		write(fd, "2147483647", 10);
-	else
-	{
-		if (n < 0)
-		{
-			n = -n;
-			write(fd, "-", 1);
-		}
-		if (n / 10 != 0)
-		{
-			ft_putnbr_fd(n / 10, fd);
-		}
-		c = n % 10 + '0';
-		write(fd, &c, 1);
-	}
+void	ft_error_input(void)
+{
+	ft_printf("Error : The program takes 4 arguments.\n");
+	ft_printf("Example: ./pipex infile \"ls -l\" \"wc -l\" outfile\n");
+	exit(EXIT_FAILURE);
 }

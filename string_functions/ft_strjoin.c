@@ -1,42 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/07 14:26:46 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/21 18:10:06 by merlich          ###   ########.fr       */
+/*   Created: 2021/10/07 15:22:42 by merlich           #+#    #+#             */
+/*   Updated: 2022/02/25 19:37:35 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin(char const	*s1, char const	*s2)
 {
 	size_t	i;
-	size_t	size;
-	size_t	s_len;
-	char	*sub_str;
+	char	*new_str;
 
 	i = 0;
-	size = len;
-	if (NULL == s)
+	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	s_len = ft_strlen(s);
-	if (len > s_len)
-		size = s_len;
-	sub_str = malloc(size + 1);
-	if (NULL == sub_str)
-		return (NULL);
-	else if (!((*s == '\0') || (start >= s_len)))
+	new_str = malloc(ft_strlen(s1) + ft_strlen(s2));
+	if (NULL == new_str)
+		exit(EXIT_FAILURE);
+	else
 	{
-		while (i < size)
+		while (s1[i] != '\0')
 		{
-			sub_str[i] = s[start + i];
+			new_str[i] = s1[i];
 			i++;
 		}
+		while (*s2 != '\0')
+		{
+			new_str[i] = *s2;
+			i++;
+			s2++;
+		}
+		new_str[i] = '\0';
+		return (new_str);
 	}
-	sub_str[i] = '\0';
-	return (sub_str);
 }
