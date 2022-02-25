@@ -6,54 +6,20 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 23:09:50 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 19:37:18 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/25 21:02:30 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	ft_delete_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-		free(tab[i++]);
-	free(tab);
-}
-
-static void	ft_get_flags(t_data *elem, char **bin)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-	char	**tab;
-
-	i = 0;
-	j = 0;
-	tmp = NULL;
-	while (bin[i])
-		i++;
-	tab = (char **)malloc(sizeof(char *) * i);
-	while (bin[j] && bin[j + 1])
-	{
-		tab[j] = ft_strdup(bin[j + 1]);
-		j++;
-	}
-	tab[j] = NULL;
-	elem->flags = tab;
-}
-
 static void	ft_build_n_check_path(t_data *head, char **bin_path, char *bin)
 {
-	int		i;
 	char	*tmp;
 	char	*full_path;
 
-	i = 0;
-	while (bin_path[i] && bin_path[i + 1])
+	while (*bin_path)
 	{
-		tmp = ft_strjoin(bin_path[i], "/");
+		tmp = ft_strjoin(*bin_path, "/");
 		full_path = ft_strjoin(tmp, bin);
 		free(tmp);
 		if (!access(full_path, X_OK))
@@ -62,7 +28,7 @@ static void	ft_build_n_check_path(t_data *head, char **bin_path, char *bin)
 			return ;
 		}
 		free(full_path);
-		i++;
+		bin_path++;
 	}
 	perror("Error cmd");
 	exit(EXIT_FAILURE);
@@ -70,7 +36,6 @@ static void	ft_build_n_check_path(t_data *head, char **bin_path, char *bin)
 
 void	ft_fill_list(t_data *head, char **envp)
 {
-	int		i;
 	t_data	*elem;
 	char	*tmp;
 	char	**bin;
@@ -80,18 +45,16 @@ void	ft_fill_list(t_data *head, char **envp)
 	tmp = NULL;
 	bin = NULL;
 	bin_path = NULL;
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-		i++;
-	tmp = ft_strtrim(envp[i], "PATH=");
+	while (*envp && ft_strncmp(*envp, "PATH=", 5))
+		envp++;
+	tmp = ft_strtrim(*envp, "PATH=");
 	bin_path = ft_split(tmp, ':');
 	free(tmp);
 	while (elem->next)
 	{
 		bin = ft_split(elem->path, ' ');
 		ft_build_n_check_path(elem, bin_path, bin[0]);
-		ft_get_flags(elem, bin);
-		ft_delete_tab(bin);
+		elem->flags = bin;
 		elem = elem->next;
 	}
 	ft_delete_tab(bin_path);

@@ -6,7 +6,7 @@
 #    By: merlich <merlich@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 17:17:40 by merlich           #+#    #+#              #
-#    Updated: 2022/02/25 20:01:18 by merlich          ###   ########.fr        #
+#    Updated: 2022/02/25 20:03:36 by merlich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS	=	mandatory/main.c mandatory/stdin_parser.c \
 			ft_printf/ft_putstr_fd.c \
 			list_functions/list_functions.c
 
-OBJS_DIR =	
+# OBJS_DIR =	objs/
 
 OBJS	=	${addprefix ${OBJS_DIR}, ${SRCS:.c=.o}}
 
@@ -36,8 +36,7 @@ CFLAGS	=	-Wall -Wextra -Werror -I ${HEADER}
 
 RM		=	rm -rf
 
-${OBJS_DIR}%.o:	%.c
-				@mkdir -p ${OBJS_DIR}
+%.o:	%.c
 				${CLANG} ${CFLAGS} -c $< -o $@
 
 all:	${NAME}
@@ -46,7 +45,7 @@ ${NAME}: 	${OBJS}
 		${CLANG} ${OBJS} -o ${NAME}
 
 clean:
-		${RM} ${OBJS_DIR}
+		${RM} ${OBJS}
 
 fclean:	clean
 		${RM} ${NAME}
