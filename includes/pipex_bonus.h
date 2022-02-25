@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 23:03:47 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/25 23:14:27 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,20 @@ int		ft_list_size(t_data *head);
 t_data	*ft_list_last(t_data *head);
 t_data	*ft_stack_last_but_one(t_data *lst);
 
-/* MANDATORY FOLDER */
-/* stdin_parser.c */
+/* BONUS FOLDER */
+/* stdin_parser_bonus.c */
 void	ft_fill_list(t_data *head, char **envp);
 void	ft_check_files(char **argv);
 
-/* error.c */
+/* error_bonus.c */
 void	ft_error(char *err_msg, t_data **head);
 void	ft_error_input(void);
 
-/* childs.c */
+/* childs_bonus.c */
 void	first_child(t_data *head, char **envp);
 void	second_child(t_data *head, char **envp);
 
-/* close_fd.c */
+/* close_fd_bonus.c */
 void	ft_close_fd(t_data *head);
 
 #endif
