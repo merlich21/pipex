@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:36 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 21:06:04 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/25 21:44:24 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,22 @@ static void	ft_init_fildes(t_data *head)
 static void	ft_child_1(t_data *head, pid_t pid, char **envp)
 {
 	pid = fork();
-	if (pid == 0)
+	if (pid < 0)
+		exit(EXIT_FAILURE);
+	else if (pid == 0)
 		first_child(head, envp);
 	waitpid(pid, NULL, 0);
 }
 
 static void	ft_child_2(t_data *head, pid_t pid, char **envp)
 {
+	close(head->fildes[1]);
 	pid = fork();
+	if (pid < 0)
+		exit(EXIT_FAILURE);
 	if (pid == 0)
 		second_child(head, envp);
+	waitpid(pid, NULL, 0);
 }
 
 int	main(int argc, char **argv, char **envp)
