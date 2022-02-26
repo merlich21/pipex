@@ -1,27 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_bonus.c                                      :+:      :+:    :+:   */
+/*   list_functions_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 21:56:54 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/26 21:25:02 by merlich          ###   ########.fr       */
+/*   Created: 2022/01/30 20:30:44 by merlich           #+#    #+#             */
+/*   Updated: 2022/02/26 21:49:29 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-void	ft_error(char *err_msg, t_data **head)
+void	ft_push(t_data **head, char *path)
 {
-	perror(err_msg);
-	ft_delete_list_bonus(head);
-	exit(EXIT_FAILURE);
+	t_data	*tmp;
+
+	tmp = malloc(sizeof(t_data));
+	if (NULL == tmp)
+		exit(EXIT_FAILURE);
+	tmp->path = path;
+	tmp->next = *head;
+	*head = tmp;
 }
 
-void	ft_error_input(void)
+void	ft_delete_list_bonus(t_data **head)
 {
-	ft_printf("Error : The program takes 4 arguments.\n");
-	ft_printf("Example: ./pipex infile \"ls -l\" \"wc -l\" outfile\n");
-	exit(EXIT_FAILURE);
+	t_data	*tmp;
+
+	tmp = *head;
+	*head = tmp->next;
+	free(tmp->pipe);
+	free(tmp);
+	while ((*head)->next)
+	{
+		tmp = *head;
+		*head = tmp->next;
+		free(tmp->path);
+		ft_delete_tab(tmp->flags);
+		free(tmp);
+	}
+	free(*head);
 }

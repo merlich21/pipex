@@ -6,18 +6,32 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:28:50 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 23:08:37 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/26 22:28:01 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
+void	ft_close_pipes(t_data *head)
+{
+	int	i;
+
+	i = 0;
+	while (i < head->pipe_num)
+	{
+		if (close(head->pipe[i]) == -1)
+			ft_error("Error while close pipe", &head);
+		i++;
+	}
+}
+
 void	ft_close_fd(t_data *head)
 {
-	close(head->infile);
-	close(head->outfile);
-	close(head->fildes[0]);
-	close(head->fildes[1]);
+	if (close(head->infile) == -1)
+		ft_error("Error while close infile", &head);
+	if (close(head->outfile) == -1)
+		ft_error("Error while close outfile", &head);
+	ft_close_pipes(head);
 }
 
 void	ft_delete_tab(char **tab)

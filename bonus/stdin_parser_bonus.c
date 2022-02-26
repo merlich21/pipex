@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 23:09:50 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 23:08:49 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/26 22:15:03 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,21 @@ void	ft_fill_list(t_data *head, char **envp)
 	bin_path = ft_split(tmp, ':');
 	free(tmp);
 	while (elem->next)
-	{
+	{	
 		bin = ft_split(elem->path, ' ');
 		ft_build_n_check_path(elem, bin_path, bin[0]);
 		elem->flags = bin;
+			// ft_printf("%s\n", elem->path);
+			// ft_printf("%s\n", bin[2]);
 		elem = elem->next;
 	}
+
 	ft_delete_tab(bin_path);
 }
 
-void	ft_check_files(char **argv)
+void	ft_check_files(int argc, char **argv)
 {
-	if (access(argv[1], R_OK) || access(argv[4], W_OK))
+	if (access(argv[1], R_OK) || access(argv[argc - 1], W_OK))
 	{
 		perror("Error infile/outfile");
 		exit(EXIT_FAILURE);

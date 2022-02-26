@@ -6,7 +6,7 @@
 #    By: merlich <merlich@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 17:17:40 by merlich           #+#    #+#              #
-#    Updated: 2022/02/25 23:11:28 by merlich          ###   ########.fr        #
+#    Updated: 2022/02/26 21:45:45 by merlich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,28 +43,28 @@ SRCL_PATH	=	${addprefix ${SRCL_DIR}, ${SRCL}}
 OBJS_L		=	${SRCL_PATH:.c=.o}
 
 SRCB		=	main_bonus.c stdin_parser_bonus.c error_bonus.c \
-				close_fd_bonus.c childs_bonus.c
+				close_fd_bonus.c childs_bonus.c list_functions_bonus.c
 SRCB_DIR	=	bonus/
 SRCB_PATH	=	${addprefix ${SRCB_DIR}, ${SRCB}}
 OBJS_B		=	${SRCB_PATH:.c=.o}
 
 CLANG	=	clang
 
-CFLAGS	=	-Wall -Wextra -Werror -I ${HEADER_M}
+CFLAGS	=	-Wall -Wextra  -I ${HEADER_B}
 
 RM		=	rm -rf
 
-%.o:	%.c		${HEADER_M} Makefile
+%.o:	%.c		${HEADER_B} Makefile
 				${CLANG} ${CFLAGS} -c $< -o $@
 
 all:	${NAME}
 
-${NAME}:	${OBJS_M} ${OBJS_STR} ${OBJS_P} ${OBJS_L}
-			${CLANG} ${OBJS_M} ${OBJS_STR} ${OBJS_P} ${OBJS_L} -o ${NAME}
+${NAME}:	${OBJS_B} ${OBJS_STR} ${OBJS_P} ${OBJS_L}
+			${CLANG} ${OBJS_B} ${OBJS_STR} ${OBJS_P} ${OBJS_L} -o ${NAME}
 
-bonus:
-		@make HEADER_M= includes/pipex_bonus.h
-		@make OBJS_M="${OBJS_B}" all
+# bonus:		${OBJS_B} ${OBJS_STR} ${OBJS_P} ${OBJS_L}
+# 			@make HEADER_M="${HEADER_B}"
+# 			${CLANG} ${OBJS_B} ${OBJS_STR} ${OBJS_P} ${OBJS_L} -o ${NAME}
 
 clean:
 		${RM} ${OBJS_M} ${OBJS_B} ${OBJS_STR} ${OBJS_P} ${OBJS_L}

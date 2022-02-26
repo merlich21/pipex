@@ -6,54 +6,52 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:36 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 23:08:44 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/26 22:58:36 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-static void	ft_init_fildes(t_data *head)
+static void	ft_create_pipes(t_data *head)
 {
-	head->infile = open(head->path, O_RDONLY);
+	int	i;
+
+	i = 0;
+	head->pipe_num = (2 * (head->cmd_num - 1));
+	head->pipe = malloc(sizeof(int) * 2 * head->cmd_num);
+	if (NULL == head->pipe)
+		ft_error("Error malloc", &head);
+	while (i < head->cmd_num - 1)
+	{
+		if(pipe(head->pipe + 2 * i))
+			ft_error("Error pipe", &head);
+		i++;
+	}
+}
+
+static void	ft_init_fildes(t_data *head, int argc, char **argv)
+{
+	head->infile = open(argv[1], O_RDONLY);
 	if (head->infile < 0)
 		ft_error("Error infile", &head);
-	head->outfile = open(ft_list_last(head)->path, \
+	head->outfile = open(argv[argc - 1], \
 						O_WRONLY | O_TRUNC | O_CREAT, 777);
 	if (head->outfile < 0)
 		ft_error("Error outfile", &head);
-	if (pipe(head->fildes) < 0)
-		ft_error("Error pipe", &head);
-}
-
-static void	ft_child_1(t_data *head, pid_t pid, char **envp)
-{
-	pid = fork();
-	if (pid < 0)
-		exit(EXIT_FAILURE);
-	else if (pid == 0)
-		first_child(head, envp);
-	waitpid(pid, NULL, 0);
-}
-
-static void	ft_child_2(t_data *head, pid_t pid, char **envp)
-{
-	close(head->fildes[1]);
-	pid = fork();
-	if (pid < 0)
-		exit(EXIT_FAILURE);
-	if (pid == 0)
-		second_child(head, envp);
-	waitpid(pid, NULL, 0);
+	head->cmd_num = argc - 3;
+	ft_create_pipes(head);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	int		i;
 	t_data	*head;
+	t_data	*cmd;
 
 	i = 1;
 	head = NULL;
-	if (argc != 5)
+	cmd = NULL;
+	if (argc < 5)
 		ft_error_input();
 	while (i < argc)
 	{
@@ -61,11 +59,18 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 	}
 	ft_fill_list(head, envp);
-	ft_check_files(argv);
-	ft_init_fildes(head);
-	ft_child_1(head, head->next->pid, envp);
-	ft_child_2(head, head->next->next->pid, envp);
+	cmd = head->next;
+	ft_check_files(argc, argv);
+	ft_init_fildes(head, argc, argv);
+	head->cmd_index = 0;
+	while (cmd->next)
+	{
+		ft_child(head, cmd, envp);
+		cmd = cmd->next;
+		head->cmd_index++;
+	}
 	ft_close_fd(head);
-	ft_delete_list(&head);
+	waitpid(-1, NULL, 0);
+	ft_delete_list_bonus(&head);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 23:14:27 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/26 22:56:55 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,14 @@ typedef struct s_data
 	char			**flags;
 
 	pid_t			pid;
+	int				cmd_index;
 
 	int				infile;
 	int				outfile;
 
-	int				fildes[2];
+	int				cmd_num;
+	int				pipe_num;
+	int				*pipe;
 
 	struct s_data	*next;
 }	t_data;
@@ -83,17 +86,20 @@ t_data	*ft_stack_last_but_one(t_data *lst);
 /* BONUS FOLDER */
 /* stdin_parser_bonus.c */
 void	ft_fill_list(t_data *head, char **envp);
-void	ft_check_files(char **argv);
+void	ft_check_files(int argc, char **argv);
 
 /* error_bonus.c */
 void	ft_error(char *err_msg, t_data **head);
 void	ft_error_input(void);
 
 /* childs_bonus.c */
-void	first_child(t_data *head, char **envp);
-void	second_child(t_data *head, char **envp);
+void	ft_child(t_data *head, t_data *cmd, char **envp);
 
 /* close_fd_bonus.c */
 void	ft_close_fd(t_data *head);
+void	ft_close_pipes(t_data *head);
+
+/* list_functions_bonus.c */
+void	ft_delete_list_bonus(t_data **head);
 
 #endif

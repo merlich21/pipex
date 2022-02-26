@@ -6,23 +6,23 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 20:30:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 21:13:48 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/26 21:49:37 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	ft_push(t_data **head, char *path)
-{
-	t_data	*tmp;
+// void	ft_push(t_data **head, char *path)
+// {
+// 	t_data	*tmp;
 
-	tmp = malloc(sizeof(t_data));
-	if (NULL == tmp)
-		exit(EXIT_FAILURE);
-	tmp->path = path;
-	tmp->next = *head;
-	*head = tmp;
-}
+// 	tmp = malloc(sizeof(t_data));
+// 	if (NULL == tmp)
+// 		exit(EXIT_FAILURE);
+// 	tmp->path = path;
+// 	tmp->next = *head;
+// 	*head = tmp;
+// }
 
 void	ft_delete_list(t_data **head)
 {
