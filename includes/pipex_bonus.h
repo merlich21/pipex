@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/26 22:56:55 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/27 20:34:17 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@
 
 typedef struct s_data
 {
-	char			*path;
-	char			**flags;
+	char			*cmd;
+	char			**cmd_paths;
+	char			**argv;
 
 	pid_t			pid;
 	int				cmd_index;
@@ -50,7 +51,6 @@ char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const	*s1, char const	*s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
-void	ft_delete_tab(char **tab);
 
 /* FT_PRINTF FOLDER */
 /* numbers.c */
@@ -75,31 +75,25 @@ void	ft_putstr_fd(char *s, int fd);
 /* ft_printf.c */
 int		ft_printf(const char *format, ...);
 
-/* LIST_FUNCTIONS FOLDER*/
-/* list_functions.c */
-void	ft_push(t_data **head, char *path);
-void	ft_delete_list(t_data **head);
-int		ft_list_size(t_data *head);
-t_data	*ft_list_last(t_data *head);
-t_data	*ft_stack_last_but_one(t_data *lst);
-
 /* BONUS FOLDER */
 /* stdin_parser_bonus.c */
-void	ft_fill_list(t_data *head, char **envp);
-void	ft_check_files(int argc, char **argv);
+void	ft_get_cmd_paths(t_data *head, char **envp);
+void	ft_check_files(int argc, char **argv, t_data *head);
 
 /* error_bonus.c */
-void	ft_error(char *err_msg, t_data **head);
+void	ft_error_parent(char *err_msg, t_data *head);
+void	ft_error_child(char *err_msg, t_data *head);
 void	ft_error_input(void);
 
 /* childs_bonus.c */
-void	ft_child(t_data *head, t_data *cmd, char **envp);
+void	ft_child(t_data head, char **argv, char **envp);
 
 /* close_fd_bonus.c */
-void	ft_close_fd(t_data *head);
 void	ft_close_pipes(t_data *head);
-
-/* list_functions_bonus.c */
-void	ft_delete_list_bonus(t_data **head);
+void	ft_close_fd(t_data *head);
+void	ft_free_tab(char **tab);
+void	ft_free_struct(t_data *head);
+void	ft_free_parent(t_data *head);
+void	ft_free_child(t_data *head);
 
 #endif

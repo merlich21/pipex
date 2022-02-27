@@ -6,7 +6,7 @@
 #    By: merlich <merlich@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 17:17:40 by merlich           #+#    #+#              #
-#    Updated: 2022/02/26 21:45:45 by merlich          ###   ########.fr        #
+#    Updated: 2022/02/27 19:10:46 by merlich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ SRCL_PATH	=	${addprefix ${SRCL_DIR}, ${SRCL}}
 OBJS_L		=	${SRCL_PATH:.c=.o}
 
 SRCB		=	main_bonus.c stdin_parser_bonus.c error_bonus.c \
-				close_fd_bonus.c childs_bonus.c list_functions_bonus.c
+				close_fd_bonus.c childs_bonus.c
 SRCB_DIR	=	bonus/
 SRCB_PATH	=	${addprefix ${SRCB_DIR}, ${SRCB}}
 OBJS_B		=	${SRCB_PATH:.c=.o}
@@ -59,8 +59,8 @@ RM		=	rm -rf
 
 all:	${NAME}
 
-${NAME}:	${OBJS_B} ${OBJS_STR} ${OBJS_P} ${OBJS_L}
-			${CLANG} ${OBJS_B} ${OBJS_STR} ${OBJS_P} ${OBJS_L} -o ${NAME}
+${NAME}:	${OBJS_B} ${OBJS_STR} ${OBJS_P}
+			${CLANG} ${OBJS_B} ${OBJS_STR} ${OBJS_P} -o ${NAME}
 
 # bonus:		${OBJS_B} ${OBJS_STR} ${OBJS_P} ${OBJS_L}
 # 			@make HEADER_M="${HEADER_B}"

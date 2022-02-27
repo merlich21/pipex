@@ -6,16 +6,23 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 21:56:54 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/26 21:25:02 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/27 20:23:32 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-void	ft_error(char *err_msg, t_data **head)
+void	ft_error_child(char *err_msg, t_data *head)
 {
 	perror(err_msg);
-	ft_delete_list_bonus(head);
+	ft_free_child(head);
+	exit(EXIT_FAILURE);
+}
+
+void	ft_error_parent(char *err_msg, t_data *head)
+{
+	perror(err_msg);
+	ft_free_parent(head);
 	exit(EXIT_FAILURE);
 }
 
