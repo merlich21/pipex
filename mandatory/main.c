@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:36 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 21:44:24 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/02 22:33:00 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	main(int argc, char **argv, char **envp)
 		i++;
 	}
 	ft_fill_list(head, envp);
-	ft_check_files(argv);
 	ft_init_fildes(head);
 	ft_child_1(head, head->next->pid, envp);
 	ft_child_2(head, head->next->next->pid, envp);

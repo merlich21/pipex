@@ -6,12 +6,12 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/27 20:34:17 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/02 22:12:54 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <fcntl.h>
 # include <sys/types.h>
@@ -23,6 +23,7 @@
 # include <sys/wait.h>
 # include <stdarg.h>
 # include <errno.h>
+# include "../get_next_line/get_next_line_bonus.h"
 
 typedef struct s_data
 {
@@ -40,6 +41,7 @@ typedef struct s_data
 	int				pipe_num;
 	int				*pipe;
 
+	int				here_doc;
 	struct s_data	*next;
 }	t_data;
 
@@ -76,9 +78,8 @@ void	ft_putstr_fd(char *s, int fd);
 int		ft_printf(const char *format, ...);
 
 /* BONUS FOLDER */
-/* stdin_parser_bonus.c */
+/* pipex_bonus.c */
 void	ft_get_cmd_paths(t_data *head, char **envp);
-void	ft_check_files(int argc, char **argv, t_data *head);
 
 /* error_bonus.c */
 void	ft_error_parent(char *err_msg, t_data *head);
@@ -95,5 +96,11 @@ void	ft_free_tab(char **tab);
 void	ft_free_struct(t_data *head);
 void	ft_free_parent(t_data *head);
 void	ft_free_child(t_data *head);
+
+/* infile_outfile_bonus.c */
+void	ft_init_fildes(t_data *head, int argc, char **argv);
+
+/* here_doc_bonus.c */
+void	ft_fill_here_doc(t_data *head, char **argv);
 
 #endif

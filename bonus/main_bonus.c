@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:36 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/27 20:53:35 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/02 22:11:26 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,11 @@ static void	ft_create_pipes(t_data *head)
 	}
 }
 
-void	ft_close_pipes(t_data *head)
+void	ft_get_cmd_paths(t_data *head, char **envp)
 {
-	int	i;
-
-	i = 0;
-	while (i < head->pipe_num)
-	{
-		if (close(head->pipe[i]) == -1)
-			ft_error_parent("Error while close pipe", head);
-		i++;
-	}
-}
-
-static void	ft_init_fildes(t_data *head, int argc, char **argv)
-{
-	head->infile = open(argv[1], O_RDONLY);
-	if (head->infile < 0)
-		ft_error_parent("Error infile", head);
-	head->outfile = open(argv[argc - 1], \
-						O_WRONLY | O_TRUNC | O_CREAT, 777);
-	if (head->outfile < 0)
-		ft_error_parent("Error outfile", head);
+	while (*envp && ft_strncmp(*envp, "PATH=", 5))
+		envp++;
+	head->cmd_paths = ft_split((*envp + 5), ':');
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -61,9 +44,8 @@ int	main(int argc, char **argv, char **envp)
 	if (argc < 5)
 		ft_error_input();
 	ft_get_cmd_paths(&head, envp);
-	ft_check_files(argc, argv, &head);
 	ft_init_fildes(&head, argc, argv);
-	head.cmd_num = argc - 3;
+	head.cmd_num = argc - 3 - head.here_doc;
 	head.pipe_num = 2 * (head.cmd_num - 1);
 	ft_create_pipes(&head);
 	head.cmd_index = 0;

@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 23:03:47 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/02 22:30:46 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ t_data	*ft_stack_last_but_one(t_data *lst);
 /* MANDATORY FOLDER */
 /* stdin_parser.c */
 void	ft_fill_list(t_data *head, char **envp);
-void	ft_check_files(char **argv);
 
 /* error.c */
 void	ft_error(char *err_msg, t_data **head);

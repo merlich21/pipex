@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 23:09:50 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/25 21:02:30 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/02 22:30:15 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,4 @@ void	ft_fill_list(t_data *head, char **envp)
 		elem = elem->next;
 	}
 	ft_delete_tab(bin_path);
-}
-
-void	ft_check_files(char **argv)
-{
-	if (access(argv[1], R_OK) || access(argv[4], W_OK))
-	{
-		perror("Error infile/outfile");
-		exit(EXIT_FAILURE);
-	}
 }
