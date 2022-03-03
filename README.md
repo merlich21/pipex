@@ -1,7 +1,7 @@
 # pipex
-
+_________________________________________________________
 MANDATORY PART: (make)
-
+_________________________________________________________
 The program will be executed as follows:
 
 ./pipex file1 cmd1 cmd2 file2
@@ -26,7 +26,7 @@ Will behave like: < infile ls -l | wc -l > outfile
 Will behave like: < infile grep a1 | wc -w > outfile
 _________________________________________________________
 BONUS PART: (make bonus)
-
+_________________________________________________________
 1. The program handles multiple pipes.
 
 This:
