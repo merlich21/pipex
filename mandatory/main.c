@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:36 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/02 22:33:00 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/03 20:27:17 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_init_fildes(t_data *head)
 	if (head->infile < 0)
 		ft_error("Error infile", &head);
 	head->outfile = open(ft_list_last(head)->path, \
-						O_WRONLY | O_TRUNC | O_CREAT, 777);
+						O_WRONLY | O_TRUNC | O_CREAT, 000777);
 	if (head->outfile < 0)
 		ft_error("Error outfile", &head);
 	if (pipe(head->fildes) < 0)
