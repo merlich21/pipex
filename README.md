@@ -14,7 +14,7 @@ It takes 4 arguments:
 It behaves exactly the same as the shell command below:
 
 $> < file1 cmd1 | cmd2 > file2
-
+*********************************************************
 Examples:
 
 1) $> ./pipex infile "ls -l" "wc -l" outfile
