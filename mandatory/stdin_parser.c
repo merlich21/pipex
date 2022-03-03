@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 23:09:50 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/02 22:30:15 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/03 19:44:37 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ void	ft_fill_list(t_data *head, char **envp)
 		elem->flags = bin;
 		elem = elem->next;
 	}
-	ft_delete_tab(bin_path);
+	ft_free_tab(bin_path);
 }

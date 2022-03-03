@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 20:30:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/02 22:28:36 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/03 19:45:11 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_delete_list(t_data **head)
 		tmp = *head;
 		*head = tmp->next;
 		free(tmp->path);
-		ft_delete_tab(tmp->flags);
+		ft_free_tab(tmp->flags);
 		free(tmp);
 	}
 	free(*head);

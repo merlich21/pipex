@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/02 22:30:46 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/03 19:43:57 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const	*s1, char const	*s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strdup(const char *s);
-void	ft_delete_tab(char **tab);
 
 /* FT_PRINTF FOLDER */
 /* numbers.c */
@@ -94,5 +93,6 @@ void	second_child(t_data *head, char **envp);
 
 /* close_fd.c */
 void	ft_close_fd(t_data *head);
+void	ft_free_tab(char **tab);
 
 #endif
