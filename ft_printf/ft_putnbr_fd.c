@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/15 15:46:50 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/23 22:28:34 by merlich          ###   ########.fr       */
+/*   Created: 2021/10/09 18:51:12 by merlich           #+#    #+#             */
+/*   Updated: 2022/02/25 19:36:34 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
-char	*ft_strdup(const char *s)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int		i;
-	int		errsv;
-	char	*ptr;
+	char	c;
 
-	i = 0;
-	ptr = malloc(ft_strlen(s) + 1);
-	if (NULL == ptr)
-	{
-		errsv = errno;
-		return (NULL);
-	}
+	if (n == -2147483648)
+		write(fd, "-2147483648", 11);
+	else if (n == 2147483647)
+		write(fd, "2147483647", 10);
 	else
 	{
-		while (s[i] != '\0')
+		if (n < 0)
 		{
-			ptr[i] = s[i];
-			i++;
+			n = -n;
+			write(fd, "-", 1);
 		}
-		ptr[i] = '\0';
+		if (n / 10 != 0)
+		{
+			ft_putnbr_fd(n / 10, fd);
+		}
+		c = n % 10 + '0';
+		write(fd, &c, 1);
 	}
-	return (ptr);
 }

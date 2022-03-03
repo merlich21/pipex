@@ -6,11 +6,11 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/08 12:05:58 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/21 18:05:34 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/25 19:37:28 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 static size_t	ft_char_counter(char const *s, char c)
 {	

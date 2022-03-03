@@ -6,11 +6,11 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/29 11:24:59 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/21 21:44:36 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/25 19:36:27 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 static int	ft_search(char *s, char c)
 {

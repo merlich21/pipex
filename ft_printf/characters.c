@@ -6,11 +6,11 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 14:36:52 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/21 21:38:47 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/25 19:35:48 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 int	ft_char(char c, int fd)
 {

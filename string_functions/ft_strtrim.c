@@ -6,11 +6,11 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 16:16:03 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/21 18:24:15 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/25 19:37:49 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 static void	ft_trim_begin(char const *s1, char const *set, size_t *min)
 {

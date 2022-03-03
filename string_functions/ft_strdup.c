@@ -1,18 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 18:02:56 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/21 21:52:38 by merlich          ###   ########.fr       */
+/*   Created: 2021/10/15 15:46:50 by merlich           #+#    #+#             */
+/*   Updated: 2022/02/25 19:37:32 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
-void	ft_putchar_fd(char c, int fd)
+char	*ft_strdup(const char *s)
 {
-	write(fd, &c, 1);
+	int		i;
+	int		errsv;
+	char	*ptr;
+
+	i = 0;
+	ptr = malloc(ft_strlen(s) + 1);
+	if (NULL == ptr)
+	{
+		errsv = errno;
+		return (NULL);
+	}
+	else
+	{
+		while (s[i] != '\0')
+		{
+			ptr[i] = s[i];
+			i++;
+		}
+		ptr[i] = '\0';
+	}
+	return (ptr);
 }

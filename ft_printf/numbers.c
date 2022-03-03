@@ -6,11 +6,11 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 17:09:43 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/21 21:38:56 by merlich          ###   ########.fr       */
+/*   Updated: 2022/02/25 19:36:41 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 void	ft_putnbr_unsigned_fd(unsigned int n, int fd)
 {

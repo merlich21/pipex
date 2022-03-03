@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/13 15:29:33 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/23 20:22:01 by merlich          ###   ########.fr       */
+/*   Created: 2022/02/24 21:56:54 by merlich           #+#    #+#             */
+/*   Updated: 2022/02/27 19:27:24 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	ft_error(char *err_msg, t_data **head)
 {
-	int					res;
-	size_t				i;
-	const unsigned char	*p1;
-	const unsigned char	*p2;
+	perror(err_msg);
+	ft_delete_list(head);
+	exit(EXIT_FAILURE);
+}
 
-	p1 = (const unsigned char *) s1;
-	p2 = (const unsigned char *) s2;
-	res = 0;
-	i = 0;
-	while ((i < n) && ((p1[i] != '\0') || (p2[i] != '\0')))
-	{
-		if (p1[i] != p2[i])
-		{
-			res = p1[i] - p2[i];
-			break ;
-		}
-		i++;
-	}
-	return (res);
+void	ft_error_input(void)
+{
+	ft_printf("Error : The program takes 4 arguments.\n");
+	ft_printf("Example: ./pipex infile \"ls -l\" \"wc -l\" outfile\n");
+	exit(EXIT_FAILURE);
 }

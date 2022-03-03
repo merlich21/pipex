@@ -6,11 +6,11 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/30 20:30:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/02/24 21:38:47 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/03 19:45:11 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 void	ft_push(t_data **head, char *path)
 {
@@ -36,7 +36,7 @@ void	ft_delete_list(t_data **head)
 		tmp = *head;
 		*head = tmp->next;
 		free(tmp->path);
-		ft_delete_tab(tmp->flags);
+		ft_free_tab(tmp->flags);
 		free(tmp);
 	}
 	free(*head);
