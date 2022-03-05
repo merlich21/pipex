@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:36 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/03 20:27:17 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/04 21:47:52 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	ft_child_1(t_data *head, pid_t pid, char **envp)
 		exit(EXIT_FAILURE);
 	else if (pid == 0)
 		first_child(head, envp);
-	waitpid(pid, NULL, 0);
 }
 
 static void	ft_child_2(t_data *head, pid_t pid, char **envp)
@@ -43,7 +42,6 @@ static void	ft_child_2(t_data *head, pid_t pid, char **envp)
 		exit(EXIT_FAILURE);
 	if (pid == 0)
 		second_child(head, envp);
-	waitpid(pid, NULL, 0);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -65,6 +63,8 @@ int	main(int argc, char **argv, char **envp)
 	ft_child_1(head, head->next->pid, envp);
 	ft_child_2(head, head->next->next->pid, envp);
 	ft_close_fd(head);
+	// wait(NULL);
+	// wait(NULL);
 	ft_delete_list(&head);
 	return (0);
 }

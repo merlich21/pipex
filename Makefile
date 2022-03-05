@@ -6,7 +6,7 @@
 #    By: merlich <merlich@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 17:17:40 by merlich           #+#    #+#              #
-#    Updated: 2022/03/03 20:01:31 by merlich          ###   ########.fr        #
+#    Updated: 2022/03/04 23:58:16 by merlich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ BONUS_O		=	${OBJS_B} ${OBJS_STR} ${OBJS_P} ${OBJS_GNL}
 
 CLANG	=	clang
 
-CFLAGS	=	-Wall -Wextra -Werror -MD
+CFLAGS	=	-Wall -Wextra -Werror -MD -g
 
 RM		=	rm -rf
 

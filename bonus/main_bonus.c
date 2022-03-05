@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:36 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/02 22:11:26 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/04 23:48:07 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,11 @@ static void	ft_create_pipes(t_data *head)
 
 void	ft_get_cmd_paths(t_data *head, char **envp)
 {
+	head->cmd_paths = NULL;
 	while (*envp && ft_strncmp(*envp, "PATH=", 5))
 		envp++;
+	if (NULL == *envp)
+		return ;
 	head->cmd_paths = ft_split((*envp + 5), ':');
 }
 
@@ -48,15 +51,16 @@ int	main(int argc, char **argv, char **envp)
 	head.cmd_num = argc - 3 - head.here_doc;
 	head.pipe_num = 2 * (head.cmd_num - 1);
 	ft_create_pipes(&head);
-	head.cmd_index = 0;
-	while (head.cmd_index < head.cmd_num)
-	{
+	head.cmd_index = -1;
+	while (++head.cmd_index < head.cmd_num)
 		ft_child(head, argv, envp);
-		head.cmd_index++;
-	}
 	ft_close_fd(&head);
 	ft_close_pipes(&head);
-	waitpid(-1, NULL, 0);
+	// while (head.cmd_index)
+	// {
+	// 	wait(NULL);
+	// 	head.cmd_index--;
+	// }
 	ft_free_parent(&head);
 	return (0);
 }

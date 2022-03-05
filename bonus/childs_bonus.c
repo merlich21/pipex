@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:12:48 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/02 22:09:56 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/05 20:28:43 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ static char	*ft_get_cmd(char **path, char *bin)
 	char	*tmp;
 	char	*full_path;
 
+	if (bin[0] == '/' && access(bin, X_OK))
+		return (NULL);
+	else if (!access(bin, X_OK))
+		return (ft_strdup(bin));
 	while (*path)
 	{
 		tmp = ft_strjoin(*path, "/");
@@ -32,8 +36,15 @@ static char	*ft_get_cmd(char **path, char *bin)
 
 static void	ft_dup2(int read, int write)
 {
-	dup2(read, 0);
-	dup2(write, 1);
+	int	x;
+	int	y;
+
+	x = dup2(read, 0);
+	y = dup2(write, 1);
+	if (x == -1 || y == -1)
+	{
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	ft_child(t_data head, char **argv, char **envp)
@@ -50,15 +61,22 @@ void	ft_child(t_data head, char **argv, char **envp)
 					head.pipe[2 * head.cmd_index + 1]);
 		else
 			ft_dup2(head.pipe[2 * head.cmd_index - 2], head.outfile);
-		ft_close_pipes(&head);
+		ft_close_pipes_child(&head);
 		head.argv = ft_split(argv[head.cmd_index + 2 + head.here_doc], ' ');
 		head.cmd = ft_get_cmd(head.cmd_paths, head.argv[0]);
 		if (NULL == head.cmd)
 		{
-			ft_free_tab(head.argv);
+		/////////////////////	// ft_free_tab(head.argv); ///////////////// source of f*cking free
 			perror("Error cmd");
 			exit(EXIT_FAILURE);
 		}
 		execve(head.cmd, head.argv, envp);
+		// if (head.cmd)
+		// {	free(head.cmd);
+		// 	ft_printf("%p\n", pipe);}
+		// ft_free_tab(head.argv);
+		// ft_printf("%p\n", pipe);
+		// ft_error_parent("Error execve", &head);
+		exit(EXIT_FAILURE);
 	}
 }

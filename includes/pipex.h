@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/03 19:43:57 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/04 22:25:29 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_data
 {
 	char			*path;
 	char			**flags;
+	char			**bin_path;
 
 	pid_t			pid;
 
