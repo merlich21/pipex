@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:36 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/05 21:15:26 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/05 21:52:23 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int	main(int argc, char **argv, char **envp)
 		ft_child(head, argv, envp);
 	ft_close_fd(&head);
 	ft_close_pipes(&head);
-	// while (head.cmd_index)
-	// {
-	// 	wait(NULL);
-	// 	head.cmd_index--;
-	// }
+	while (head.cmd_index)
+	{
+		wait(NULL);
+		head.cmd_index--;
+	}
 	ft_free_parent(&head);
 	return (0);
 }
