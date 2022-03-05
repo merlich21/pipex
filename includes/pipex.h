@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/04 22:25:29 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/05 20:51:21 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,19 @@
 
 typedef struct s_data
 {
-	char			*path;
-	char			**flags;
-	char			**bin_path;
+	char			*cmd;
+	char			**cmd_paths;
+	char			**argv;
 
 	pid_t			pid;
+	int				cmd_index;
 
 	int				infile;
 	int				outfile;
 
-	int				fildes[2];
+	int				cmd_num;
+	int				pipe_num;
+	int				*pipe;
 
 	struct s_data	*next;
 }	t_data;
@@ -72,28 +75,28 @@ void	ft_putstr_fd(char *s, int fd);
 /* ft_printf.c */
 int		ft_printf(const char *format, ...);
 
-/* LIST_FUNCTIONS FOLDER*/
-/* list_functions.c */
-void	ft_push(t_data **head, char *path);
-void	ft_delete_list(t_data **head);
-int		ft_list_size(t_data *head);
-t_data	*ft_list_last(t_data *head);
-t_data	*ft_stack_last_but_one(t_data *lst);
-
 /* MANDATORY FOLDER */
-/* stdin_parser.c */
-void	ft_fill_list(t_data *head, char **envp);
+/* main.c */
+void	ft_get_cmd_paths(t_data *head, char **envp);
 
 /* error.c */
-void	ft_error(char *err_msg, t_data **head);
+void	ft_error_parent(char *err_msg, t_data *head);
+void	ft_error_child(char *err_msg, t_data *head);
 void	ft_error_input(void);
 
-/* childs.c */
-void	first_child(t_data *head, char **envp);
-void	second_child(t_data *head, char **envp);
+/* childs_bonus.c */
+void	ft_child(t_data head, char **argv, char **envp);
 
-/* close_fd.c */
+/* close_fd_bonus.c */
+void	ft_close_pipes(t_data *head);
+void	ft_close_pipes_child(t_data *head);
 void	ft_close_fd(t_data *head);
 void	ft_free_tab(char **tab);
+
+void	ft_free_parent(t_data *head);
+void	ft_free_child(t_data *head);
+
+/* infile_outfile_bonus.c */
+void	ft_init_fildes(t_data *head, int argc, char **argv);
 
 #endif

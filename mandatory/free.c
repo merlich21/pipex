@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 21:56:54 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/05 20:38:47 by merlich          ###   ########.fr       */
+/*   Created: 2022/03/05 20:58:29 by merlich           #+#    #+#             */
+/*   Updated: 2022/03/05 21:18:30 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	ft_error_child(char *err_msg, t_data *head)
+void	ft_free_tab(char **tab)
 {
-	perror(err_msg);
-	ft_free_child(head);
-	exit(EXIT_FAILURE);
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }
 
-void	ft_error_parent(char *err_msg, t_data *head)
+void	ft_free_parent(t_data *head)
 {
-	perror(err_msg);
-	ft_free_parent(head);
-	exit(EXIT_FAILURE);
+	if (head->cmd_paths)
+		ft_free_tab(head->cmd_paths);
 }
 
-void	ft_error_input(void)
+void	ft_free_child(t_data *head)
 {
-	ft_printf("Error : The program takes 4 arguments.\n");
-	ft_printf("Example: ./pipex infile \"ls -l\" \"wc -l\" outfile\n");
-	exit(EXIT_FAILURE);
+	if (head->cmd)
+		free(head->cmd);
+	if (head->argv)
+		ft_free_tab(head->argv);
 }

@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:28:50 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/04 23:54:02 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/05 21:00:24 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,36 +52,4 @@ void	ft_close_pipes_child(t_data *head)
 		i++;
 	}
 	free(head->pipe);
-}
-
-void	ft_free_tab(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
-
-void	ft_free_parent(t_data *head)
-{
-	int	i;
-
-	i = 0;
-	if (head->here_doc)
-		unlink(".here_doc");
-	if (head->cmd_paths)
-		ft_free_tab(head->cmd_paths);
-		
-}
-
-void	ft_free_child(t_data *head)
-{
-	free(head->cmd);
-	// ft_free_tab(head->cmd_paths);
-	ft_free_tab(head->argv);
 }

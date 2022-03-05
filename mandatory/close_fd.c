@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:28:50 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/05 00:01:10 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/05 20:58:15 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,42 @@
 
 void	ft_close_fd(t_data *head)
 {
-	close(head->infile);
-	close(head->outfile);
-	close(head->fildes[0]);
-	close(head->fildes[1]);
+	if (close(head->infile) == -1)
+		ft_error_parent("Error closing infile", head);
+	if (close(head->outfile) == -1)
+		ft_error_parent("Error closing outfile", head);
 }
 
-void	ft_free_tab(char **tab)
+void	ft_close_pipes(t_data *head)
 {
 	int	i;
 
 	i = 0;
-	while (tab[i])
+	while (i < head->pipe_num)
 	{
-		free(tab[i]);
+		if (close(head->pipe[i]) == -1)
+		{
+			free(head->pipe);
+			ft_error_parent("Error while close pipe", head);
+		}
 		i++;
 	}
-	free(tab);
+	free(head->pipe);
+}
+
+void	ft_close_pipes_child(t_data *head)
+{
+	int	i;
+
+	i = 0;
+	while (i < head->pipe_num)
+	{
+		if (close(head->pipe[i]) == -1)
+		{
+			free(head->pipe);
+			ft_error_child("Error while close pipe", head);
+		}
+		i++;
+	}
+	free(head->pipe);
 }

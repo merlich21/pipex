@@ -6,61 +6,72 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:12:48 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/05 20:32:12 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/05 21:17:59 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	first_child(t_data *head, char **envp)
+static char	*ft_get_cmd(char **path, char *bin)
 {
-	int	exitstat;
-	int	x;
-	int	y;
+	char	*tmp;
+	char	*full_path;
 
-	exitstat = 0;
-	x = dup2(head->infile, 0);
-	close(head->fildes[0]);
-	y = dup2(head->fildes[1], 1);
-	if (x == -1 || y == -1)
+	if (bin[0] == '/' && access(bin, X_OK))
+		return (NULL);
+	else if (!access(bin, X_OK))
+		return (ft_strdup(bin));
+	while (*path)
 	{
-		ft_delete_list(&head);
-		exit(EXIT_FAILURE);
+		tmp = ft_strjoin(*path, "/");
+		full_path = ft_strjoin(tmp, bin);
+		free(tmp);
+		if (access(full_path, X_OK) == 0)
+			return (full_path);
+		free(full_path);
+		path++;
 	}
-	exitstat = execve(head->next->path, head->next->flags, envp);
-	// ft_delete_list(&head);
-	perror("Error execve");
-	// i = 0;
-	// while (bin_path[i])
-	// {
-	// 	ft_printf("%s\n", bin_path[i]);
-	// 	free(bin_path[i]);
-	// 	i++;
-	// }
-	exit(exitstat);
+	return (NULL);
 }
 
-void	second_child(t_data *head, char **envp)
+static void	ft_dup2(int read, int write)
 {
-	int	exitstat;
 	int	x;
 	int	y;
 
-	exitstat = 0;
-	x = dup2(head->fildes[0], 0);
-	y = dup2(head->outfile, 1);
+	x = dup2(read, 0);
+	y = dup2(write, 1);
 	if (x == -1 || y == -1)
 	{
-		ft_delete_list(&head);
 		exit(EXIT_FAILURE);
 	}
-	if (!head->next->next->path)
+}
+
+void	ft_child(t_data head, char **argv, char **envp)
+{
+	head.pid = fork();
+	if (head.pid < 0)
+		exit(EXIT_FAILURE);
+	else if (head.pid == 0)
 	{
-		perror("Error cmd");
+		if (head.cmd_index == 0)
+			ft_dup2(head.infile, head.pipe[1]);
+		else if (head.cmd_index < head.cmd_num - 1)
+			ft_dup2(head.pipe[2 * head.cmd_index - 2], \
+					head.pipe[2 * head.cmd_index + 1]);
+		else
+			ft_dup2(head.pipe[2 * head.cmd_index - 2], head.outfile);
+		ft_close_pipes_child(&head);
+		head.argv = ft_split(argv[head.cmd_index + 2], ' ');
+		head.cmd = ft_get_cmd(head.cmd_paths, head.argv[0]);
+		if (NULL == head.cmd)
+		{
+			perror("Error cmd");
+			exit(EXIT_FAILURE);
+		}
+		execve(head.cmd, head.argv, envp);
+		ft_free_child(&head);
+		ft_error_parent("Error execve", &head);
 		exit(EXIT_FAILURE);
 	}
-	exitstat = execve(head->next->next->path, head->next->next->flags, envp);
-	// ft_delete_list(&head);
-	perror("Error execve");
-	exit(exitstat);
 }

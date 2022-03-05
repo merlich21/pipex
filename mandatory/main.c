@@ -6,65 +6,61 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:36 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/04 21:47:52 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/05 21:15:26 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static void	ft_init_fildes(t_data *head)
+static void	ft_create_pipes(t_data *head)
 {
-	head->infile = open(head->path, O_RDONLY);
-	if (head->infile < 0)
-		ft_error("Error infile", &head);
-	head->outfile = open(ft_list_last(head)->path, \
-						O_WRONLY | O_TRUNC | O_CREAT, 000777);
-	if (head->outfile < 0)
-		ft_error("Error outfile", &head);
-	if (pipe(head->fildes) < 0)
-		ft_error("Error pipe", &head);
+	int	i;
+
+	i = 0;
+	head->pipe = malloc(sizeof(int) * head->pipe_num);
+	if (NULL == head->pipe)
+		ft_error_parent("Error malloc", head);
+	while (i < head->cmd_num - 1)
+	{
+		if (pipe(head->pipe + 2 * i))
+			ft_error_parent("Error pipe", head);
+		i++;
+	}
 }
 
-static void	ft_child_1(t_data *head, pid_t pid, char **envp)
+void	ft_get_cmd_paths(t_data *head, char **envp)
 {
-	pid = fork();
-	if (pid < 0)
-		exit(EXIT_FAILURE);
-	else if (pid == 0)
-		first_child(head, envp);
-}
-
-static void	ft_child_2(t_data *head, pid_t pid, char **envp)
-{
-	close(head->fildes[1]);
-	pid = fork();
-	if (pid < 0)
-		exit(EXIT_FAILURE);
-	if (pid == 0)
-		second_child(head, envp);
+	head->cmd_paths = NULL;
+	while (*envp && ft_strncmp(*envp, "PATH=", 5))
+		envp++;
+	if (NULL == *envp)
+		return ;
+	head->cmd_paths = ft_split((*envp + 5), ':');
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	int		i;
-	t_data	*head;
+	t_data	head;
 
 	i = 1;
-	head = NULL;
 	if (argc != 5)
 		ft_error_input();
-	while (i < argc)
-	{
-		ft_push(&head, argv[argc - i]);
-		i++;
-	}
-	ft_fill_list(head, envp);
-	ft_init_fildes(head);
-	ft_child_1(head, head->next->pid, envp);
-	ft_child_2(head, head->next->next->pid, envp);
-	ft_close_fd(head);
-	// wait(NULL);
-	// wait(NULL);
-	ft_delete_list(&head);
+	ft_get_cmd_paths(&head, envp);
+	ft_init_fildes(&head, argc, argv);
+	head.cmd_num = argc - 3;
+	head.pipe_num = 2 * (head.cmd_num - 1);
+	ft_create_pipes(&head);
+	head.cmd_index = -1;
+	while (++head.cmd_index < head.cmd_num)
+		ft_child(head, argv, envp);
+	ft_close_fd(&head);
+	ft_close_pipes(&head);
+	// while (head.cmd_index)
+	// {
+	// 	wait(NULL);
+	// 	head.cmd_index--;
+	// }
+	ft_free_parent(&head);
 	return (0);
 }

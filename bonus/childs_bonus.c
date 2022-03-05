@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:12:48 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/05 20:28:43 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/05 21:20:54 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,12 @@ void	ft_child(t_data head, char **argv, char **envp)
 		head.cmd = ft_get_cmd(head.cmd_paths, head.argv[0]);
 		if (NULL == head.cmd)
 		{
-		/////////////////////	// ft_free_tab(head.argv); ///////////////// source of f*cking free
 			perror("Error cmd");
 			exit(EXIT_FAILURE);
 		}
 		execve(head.cmd, head.argv, envp);
-		// if (head.cmd)
-		// {	free(head.cmd);
-		// 	ft_printf("%p\n", pipe);}
-		// ft_free_tab(head.argv);
-		// ft_printf("%p\n", pipe);
-		// ft_error_parent("Error execve", &head);
+		ft_free_child(&head);
+		ft_error_parent("Error execve", &head);
 		exit(EXIT_FAILURE);
 	}
 }
