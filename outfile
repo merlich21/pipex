@@ -1,0 +1,15 @@
+total 72
+drwxr-xr-x  14 merlich  4221    476 Mar  7 22:14 .
+drwxr-xr-x   8 merlich  4221    272 Mar  7 21:03 ..
+-rw-r--r--@  1 merlich  4221  10244 Mar  7 21:59 .DS_Store
+drwxr-xr-x  12 merlich  4221    408 Mar  7 21:02 .git
+drwxr-xr-x   3 merlich  4221    102 Mar  7 21:16 .vscode
+-rw-r--r--   1 merlich  4221   2754 Mar  7 21:18 Makefile
+drwxr-xr-x   9 merlich  4221    306 Mar  7 22:14 bonus
+drwxr-xr-x  23 merlich  4221    782 Mar  7 22:14 ft_printf
+drwxr-xr-x   5 merlich  4221    170 Mar  7 22:14 get_next_line
+drwxr-xr-x   4 merlich  4221    136 Mar  7 21:02 includes
+drwxr-xr-x  20 merlich  4221    680 Mar  7 22:14 mandatory
+-rwxr-xr-x   1 merlich  4221      0 Mar  7 22:14 outfile
+-rwxr-xr-x   1 merlich  4221  19164 Mar  7 22:14 pipex
+drwxr-xr-x  23 merlich  4221    782 Mar  7 22:14 string_functions

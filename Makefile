@@ -6,7 +6,7 @@
 #    By: merlich <merlich@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/21 17:17:40 by merlich           #+#    #+#              #
-#    Updated: 2022/03/05 21:23:31 by merlich          ###   ########.fr        #
+#    Updated: 2022/03/07 22:18:27 by merlich          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,19 +52,17 @@ MANDATORY_O	=	${OBJS_M} ${OBJS_STR} ${OBJS_P}
 
 BONUS_O		=	${OBJS_B} ${OBJS_STR} ${OBJS_P} ${OBJS_GNL}
 
-CLANG	=	clang
-
 CFLAGS	=	-Wall -Wextra -Werror -MD
 
-RM		=	rm -rf
-
 %.o:	%.c
-		${CLANG} ${CFLAGS} -c $< -o $@
+		${CC} ${CFLAGS} -c $< -o $@
+
+.PHONY:	all clean fclean re bonus
 
 all:	${NAME}
 
 ${NAME}:	${MANDATORY_O}
-			${CLANG} ${MANDATORY_O} -o ${NAME}
+			${CC} ${MANDATORY_O} -o ${NAME}
 
 -include ${D_FILES}
 
@@ -84,4 +82,3 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY:	all clean fclean re bonus

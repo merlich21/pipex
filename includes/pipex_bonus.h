@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 17:17:44 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/05 20:43:55 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/07 19:38:01 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ void	ft_error_child(char *err_msg, t_data *head);
 void	ft_error_input(void);
 
 /* childs_bonus.c */
+char	*ft_get_cmd(char **path, char *bin);
 void	ft_child(t_data head, char **argv, char **envp);
 
 /* close_fd_bonus.c */

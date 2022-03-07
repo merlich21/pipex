@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:52:03 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/05 20:55:12 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/07 22:15:40 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static void	ft_get_infile(t_data *head, char **argv)
 {
 	head->infile = open(argv[1], O_RDONLY);
-	if (head->infile < 0)
-		ft_error_parent("Error infile", head);
+	// if (head->infile < 0)
+		// 	ft_error_parent("Error infile", head);
 }
 
 static void	ft_get_outfile(t_data *head, int argc, char **argv)

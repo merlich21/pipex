@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:28:50 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/05 21:00:24 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/07 21:45:40 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_close_fd(t_data *head)
 {
-	if (close(head->infile) == -1)
+	if (head->infile != -1 && close(head->infile) == -1)
 		ft_error_parent("Error closing infile", head);
 	if (close(head->outfile) == -1)
 		ft_error_parent("Error closing outfile", head);
