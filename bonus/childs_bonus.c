@@ -6,7 +6,7 @@
 /*   By: merlich <merlich@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 22:12:48 by merlich           #+#    #+#             */
-/*   Updated: 2022/03/07 23:11:11 by merlich          ###   ########.fr       */
+/*   Updated: 2022/03/07 23:29:26 by merlich          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,11 @@ void	ft_child(t_data head, char **argv, char **envp)
 	{
 		ft_set_pipe(&head);
 		head.argv = ft_split(argv[head.cmd_index + 2 + head.here_doc], ' ');
+		if (!head.argv)
+		{
+			perror("Error in ft_split");
+			exit(EXIT_FAILURE);
+		}
 		head.cmd = ft_get_cmd(head.cmd_paths, head.argv[0]);
 		if (NULL == head.cmd)
 		{
